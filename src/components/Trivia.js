@@ -1,17 +1,33 @@
 export default function Trivia(props) {
-    const question = props.triviaData['question']
+    
+    //     key={triviaObj.id}
+    //   question={triviaObj.question}
+    //   correctAnswer={triviaObj.correctAnswer}
+    //   selected={triviaObj.selected}
+    //   allAnswers={triviaObj.allAnswers}
+    //   clickAnswer={clickAnswer} />
 
-    const correctAnswer = props.triviaData['correct_answer']
-    const incorrectAnswers = props.triviaData['incorrect_answers']
+    // CURRENT PROPS
+    // triviaData={triviaObj}
+    //   key={nanoid()}
+    //   handleSelect={handleSelect}
 
-    const allAnswers = incorrectAnswers.concat(correctAnswer)
+// const styles = {
+//         backgroundColor: props.selected ? '#D6DBF5' : 'none'
+//     }
+
+    const question = props.triviaData.question
+    const allAnswers = props.triviaData.allAnswers
+    const correctAnswer = props.triviaData.correctAnswer
 
     
-    const answerItems = allAnswers.map(each => {
+    const answerItems = allAnswers.map(answer => {
+        
         return (
             <div
+                // style={styles}
                 className="trivia-answer"
-                onClick={props.clickAnswer}><span>{each}</span></div>)
+                onClick={ () => props.handleSelect(props.triviaData.id, answer)}><span>{answer}</span></div>)
     })
 
     return (

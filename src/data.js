@@ -69,36 +69,15 @@ export const data =
             ]
         }
 
-    function generateGameDataObj() {
-        return (
-            {
-                triviaQuestion: data.question,
-                triviaAnswerOption1: {
-                    answerText: "asd",
-                    isCorrectAnswer: true,
-                    isSelected: false,
-                    isCorrectGuess: null,
-                    isIncorrectGuess: null
-                },
-                triviaAnswerOption2: {
-                    answerText: "asd",
-                    isSelected: false,
-                    isCorrectGuess: null,
-                    isIncorrectGuess: null
-                },
-                triviaAnswerOption3: {
-                    answerText: "asd",
-                    isSelected: false,
-                    isCorrectGuess: null,
-                    isIncorrectGuess: null
-                },
-                triviaAnswerOption4: {
-                    answerText: "asd",
-                    isSelected: false,
-                    isCorrectGuess: null,
-                    isIncorrectGuess: null
-                }
-            }
-            
-        )
-    }
+
+function gameDataObj() {
+    return (
+        {
+            id: nanoid();
+            question: data.question,
+            correctAnswer: data.correct_answer,
+            selected: '',
+            allAnswers:
+                shuffleAnswers([data.correct_answer, ...data.incorrect_answers])
+        }
+
