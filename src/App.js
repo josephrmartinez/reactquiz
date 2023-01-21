@@ -7,23 +7,29 @@ import { nanoid } from 'nanoid';
 function App() {
   const [triviaData, setTriviaData] = useState([])
   const [startScreen, setStartScreen] = useState(true)
+  const [quizCompleted, setQuizCompleted] = useState(false)
+  const [answerStatement, setAnswerStatement] = useState('')
 
 
-
-  function clickAnswer(correctAnswer) {
-    console.log(correctAnswer)
+  function handleSelect(quizId, selectedAnswer, answerKey) {
+    setTriviaData(prevData => prevData.map(each => {
+      return each.id === quizId ? { ...each, selected: selectedAnswer } : each
+    }))
   }
+    
 
 
-  function handleSelect(quizId, selectedAnswer) {
-    setTriviaData(prevData => prevData.map(each => (
-      each.id === quizId ? {...each, selected: selectedAnswer} : each 
-    )))
-    console.log(selectedAnswer)
-
-    // USE ID TO FIND QUIZ RELATED TO ANSWER AND THEN ACCESS THE CORRECT ANSWER
-    let quiz = triviaData.find(quizObj => quizObj.id === quizId)
-    console.log(quiz.correctAnswer)
+  function checkAnswers() {
+    setQuizCompleted(true)
+    setAnswerStatement(() => {
+      let correctAnswers = 0;
+      let totalAnswers = triviaData.length
+      triviaData.forEach(each => {
+        if (each.selected === each.correctAnswer) {correctAnswers += 1}
+      })
+      
+      return(`${correctAnswers}/${totalAnswers} correct`)
+    } )
   }
   
 
@@ -71,15 +77,12 @@ function App() {
   }
 
 
-  function checkAnswers() {
-    console.log("checked")
-  }
-
   return (
     <div className="App">
       {startScreen && <StartScreen startGame={startGame} />}
       {triviaComponents}
       <button className='check-answer-button' onClick={checkAnswers}>Check Answers</button>
+      {quizCompleted && <div className="quiz-results">{answerStatement}</div>}
     </div>
     
   );

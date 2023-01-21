@@ -1,20 +1,12 @@
+import { nanoid } from 'nanoid';
+
 export default function Trivia(props) {
-    
-    //     key={triviaObj.id}
-    //   question={triviaObj.question}
-    //   correctAnswer={triviaObj.correctAnswer}
-    //   selected={triviaObj.selected}
-    //   allAnswers={triviaObj.allAnswers}
-    //   clickAnswer={clickAnswer} />
 
-    // CURRENT PROPS
-    // triviaData={triviaObj}
-    //   key={nanoid()}
-    //   handleSelect={handleSelect}
-
-// const styles = {
-//         backgroundColor: props.selected ? '#D6DBF5' : 'none'
-//     }
+//     const styles = {
+//     wrongAnsColor: {background: "#F8BCBC"},
+//     correctAnsColor: {background: "#94D7A2"},
+//     selectColor: {background: "#D6DBF5"}
+// }
 
     const question = props.triviaData.question
     const allAnswers = props.triviaData.allAnswers
@@ -22,12 +14,17 @@ export default function Trivia(props) {
 
     
     const answerItems = allAnswers.map(answer => {
-        
+        let answerKey = nanoid()
+        const styles = {
+            backgroundColor: props.triviaData.selected === answer ? '#D6DBF5' : 'none'
+         }
+
         return (
             <div
-                // style={styles}
+                key={answerKey}
+                style={styles}
                 className="trivia-answer"
-                onClick={ () => props.handleSelect(props.triviaData.id, answer)}><span>{answer}</span></div>)
+                onClick={ () => props.handleSelect(props.triviaData.id, answer, answerKey)}><span>{answer}</span></div>)
     })
 
     return (
